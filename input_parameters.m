@@ -9,7 +9,7 @@ warning("off");
 graphics_toolkit("gnuplot");
 
 %-----------------------------
-CRUISE = "AMT22";
+CRUISE = "AMT19";
 
 % Variables to be changed during cruise according to specific setups and user needs
 %
@@ -24,94 +24,15 @@ CRUISE = "AMT22";
  
  
 # default config # ACS 122 system
-inidate = "20121013"; #  jday = 288 - start hr 1 (files on 287 appear corrupted)
-enddate = "20121014"; #
-#inidate = "20121016"; #  
-#enddate = "20121106"; # 
-#inidate = "20121115"; #  
-#enddate = "20121119"; #  
-#inidate = "20121113"; #  
-#enddate = "20121114"; #  
+inidate = "20091014"; #  jday = 287 
+enddate = "20091015"; # jday = 332 
 
-
-WAP_ROOT = strcat('amt22_706_12') 
+WAP_ROOT = strcat(lower(CRUISE),'_09') 
 dh8_instruments = {"acs", "bb3"};
-dh8_ports = {3,1}; 
+dh8_ports = {1,2}; 
 dh8_serialnumber = {94,1173}; 
-WAPhour = "01";
-ACS_CAL_FILE_NAME = "acs094.dev"
-
-#WAP_ROOT = strcat(lower(CRUISE),'_12') 
-#dh8_instruments = {"acs", "bb3"};
-#dh8_ports = {1,3}; 
-#dh8_serialnumber = {94,1173}; 
-#WAPhour = "01";
-#ACS_CAL_FILE_NAME = "acs094.dev"
-
-
-#
-#WAP_ROOT = strcat('calibration_amt22','_12') 
-#dh8_instruments = {"acs", "bb3"};
-#dh8_ports = {1,3}; 
-#dh8_serialnumber = {94,1173}; 
-#WAPhour = "01";
-#ACS_CAL_FILE_NAME = "acs094.dev"
-
-
-
-# cal connfig
-#inidate = "20121120"; 
-#enddate = "20121120"; 
-
-#WAP_ROOT = strcat('calibration2_amt22','_12') 
-#dh8_instruments = {"acs", "bb3"};
-#dh8_ports = {1,3}; 
-#dh8_serialnumber = {94,1173}; 
-#WAPhour = "15";
-#ACS_CAL_FILE_NAME = "acs094.dev";
-%-----------------------------
-
-
-
-
-
-# ACS 167 system
-#inidate = "20141001"; #  jday 274 - use as test day
-#enddate = "20141001";
-#inidate = "20141020" 
-#enddate = "20141028"; #  jday 302 - end hr 7
-#WAP_ROOT = strcat(lower(CRUISE),'_14') 
-#dh8_instruments = {"bb3", "acs2"};
-#dh8_ports = {2,4}; 
-#dh8_serialnumber = {1173,167}; 
-#WAPhour = "14";
-#ACS_CAL_FILE_NAME = "acs122_20140904.dev";
-#ACS_CAL_FILE_NAME = "acs167.dev";
-
-#  ACS 167 system with AC9
-# inidate = "20141001"; #  jday 274 - use as test day
-# enddate = "20141001"; 
-#inidate = "20141030"; #  
-#enddate = "20141031"; #  
-#WAP_ROOT = strcat('amt24_withAC9','_14') 
-#dh8_instruments = {"bb3", "acs2"};
-#dh8_ports = {2,4}; 
-#dh8_serialnumber = {1173,167}; 
-#WAPhour = "10";
-#ACS_CAL_FILE_NAME = "acs122_20140904.dev";
-#ACS_CAL_FILE_NAME = "acs167.dev";
-
-# default config # use for step2
-#inidate = "20141029"; #  jday 268 - start hr 14
-#enddate = "20141030"; #  date when ACS breaks
-#WAP_ROOT = strcat(lower(CRUISE),'_14') 
-#dh8_instruments = {"bb3", "acs"};
-#dh8_ports = {2,4}; 
-#dh8_serialnumber = {1173,122}; 
-#WAPhour = "14";
-#ACS_CAL_FILE_NAME = "acs122_20140904.dev";
-#ACS_CAL_FILE_NAME = "acs167.dev";
-
+WAPhour = "15";
+ACS_CAL_FILE_NAME = "acs007.dev"
 
 % Underway subdirectory where to find special wapped data
 % Leave with simple / if no special case
@@ -151,7 +72,7 @@ UWAY_WAP_SUBDIR = "/";
 
 %-----------------------------
 % Paths
-MAIN_PATH = "/users/rsg/tjor/scratch_network/AMT_underway/AMT22/";
+MAIN_PATH = "/users/rsg/tjor/scratch_network/AMT_underway/AMT19/";
 
 # MAIN_PATH = "/data/abitibi1/scratch/scratch_disk/tjor/AMT_underway/AMT26/"; disp("\n\n-----------THIS IS FOR     TOM----------\n\n"); fflush(stdout);
 % MAIN_PATH = "/tom/AMT_underway/AMT28/"; %disp("\n\n---------THIS IS FOR GIORGIO---------\n\n"); fflush(stdout);
@@ -169,19 +90,18 @@ addpath([PATH_SOURCE]);
 % Each directory will contain a series of subdirectories for each instrument
 % (e.g. Underway, Optics_rig, BB3_ctd etc. etc.)
 OPTIC_DIR = "Optics_rig/";
-UWAY_DIR = ""; # blank for AMT 22 (different directory srtucture to other cruises).
+UWAY_DIR = ""; # blank for AMT 29 
 BB3_DIR = "BB3_ctd/";
 CTD_DIR = "Ship_CTD/";
 % Specific data subdirectories
-#DATA_WAPPED = "Optics/WAP_extracted/";
-DATA_WAPPED = "Optics/WAP_extracted/old";
-DATA_RAW = "Raw/";
-DATA_FLOW = "Flow/";
+DATA_WAPPED = "Processed/Wap_extracted/";
+DATA_RAW = "/Raw";
+DATA_FLOW = '/Raw/Flow/' 
 DATA_WITH_BB3 = "with_BB3/";
 
 %-----------------------------
 % calibration file dir 
-D_CAL_FILES = '/data/datasets/cruise_data/active/AMT23/AMT23/underway/Instruments/ACs/SN094/2011Dec28/'
+D_CAL_FILES = '/data/datasets/cruise_data/archived/AMT19/modellers/backup/AMT19/AMT19/Processed/Wap_extracted/' # hard code
 
 %-----------------------------
 % ACS calibration file
@@ -190,7 +110,7 @@ D_CAL_FILES = '/data/datasets/cruise_data/active/AMT23/AMT23/underway/Instrument
 
 %-----------------------------
 % Ship"s system directories
-PATH_SHIP = [PATH_DATA, 'Ship_data/Original/']
+PATH_SHIP = [PATH_DATA, 'UnderwayFiles']
 
 #----------------------------
 # Input parameters for ship"s underway data
@@ -199,15 +119,16 @@ PATH_SHIP = [PATH_DATA, 'Ship_data/Original/']
 # this file is read via 2 separate functions for GPS and META.
 
 # here we assume that the ship"s uway data are always stored in daily folders called YYYYDOY (e.g., 2018290) 
-addpath([MAIN_PATH, "Source/Underway/"]) # location where @rd_gps_AMT22 @rd_meta_AMT22 are stored
+addpath([MAIN_PATH, "Source/Underway/"]) # location where @rd_gps_AMT19 @rd_meta_AMT19 are stored
 # DIR_GPS =  [PATH_SHIP, '/underway_daily/']; # 
 # DIR_GPS = '/data/datasets/cruise_data/active/AMT24/Ship_data/Compress/Compress/days/seatex-gga/' # hard-coded for amt 24
-DIR_GPS = [PATH_SHIP, '/underway_daily/']; #
+
+DIR_GPS = PATH_SHIP
 GLOB_GPS = "2012";
 FN_GPS = "daily_gps_meta.csv";
 FNC_GPS = @rd_gps_AMT22; # this function should be inside Source/Underway
 
-DIR_METDATA = [PATH_SHIP, '/underway_daily/']; #
+DIR_METDATA = PATH_SHIP
 GLOB_METDATA = "2012";
 FN_METDATA = "daily_gps_meta.csv";
 FNC_METDATA = @rd_meta_AMT22; # this function should be inside Source/Underway
