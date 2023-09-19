@@ -63,6 +63,7 @@
         disp("...done"); 
 
 
+
         % Cycle through the variables within WAPvars
         instruments = fieldnames(WAPvars);
         for iWAP = 1:length(instruments)

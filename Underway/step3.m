@@ -142,11 +142,12 @@ fn = dir([din "*mat"]);
 
 
 
-for ifn = 1:size(fn,1) 
+for ifn = 1: size(fn,1) 
  
     disp(["\n" fn(ifn).name])
     load([din fn(ifn).name]);
     
+
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % COMMENTED 2019 10 23 FN
     %
@@ -222,7 +223,7 @@ for ifn = 1:size(fn,1)
     
 
    % Check if ac9 variable exists
-    if ~isempty(intersect('ac9', fieldnames(out)))
+    if sum(sum(~isnan(out.ac9.ap)))>0
         % load ac9 data into amt_optics
         amt_optics.ac9.time = [amt_optics.ac9.time; out.ac9.time];
         amt_optics.ac9.chl  = [amt_optics.ac9.chl;  chlac9(out.ac9)];
@@ -234,8 +235,16 @@ for ifn = 1:size(fn,1)
         amt_optics.ac9.cp_u   = [amt_optics.ac9.cp_u;   out.ac9.cp_u];
         amt_optics.ac9.N      = [amt_optics.ac9.N;   out.ac9.N];
         amt_optics.ac9.wv   = [out.ac9.wv];
-    else
-        disp('ac9 do not exist in file')
+    elseif sum(sum(~isnan(out.ac9.ap)))==0
+        amt_optics.ac9.time = [amt_optics.ac9.time; nan*ones(1,1440)'];
+        amt_optics.ac9.chl  = [amt_optics.ac9.chl; nan*ones(1,1440)'];
+        amt_optics.ac9.ap   = [amt_optics.ac9.ap; nan*ones(9,1440)'];
+        amt_optics.ac9.bp   = [amt_optics.ac9.bp; nan*ones(9,1440)'];
+        amt_optics.ac9.cp   = [amt_optics.ac9.cp; nan*ones(9,1440)'];
+        amt_optics.ac9.ap_u   = [amt_optics.ac9.ap_u;  nan*ones(9,1440)'];
+        amt_optics.ac9.bp_u   = [amt_optics.ac9.bp_u;  nan*ones(9,1440)'];
+        amt_optics.ac9.cp_u   = [amt_optics.ac9.cp_u; nan*ones(9,1440)'];
+        amt_optics.ac9.N      = [amt_optics.ac9.N;  nan*ones(9,1440)'];
     endif
 
     % Check if bb3 variable exists
@@ -376,15 +385,13 @@ save('-v6', [DIR_STEP3 lower(CRUISE) '_optics.mat'], lower(CRUISE))
 
 
 figure 
-plot(amt_optics.uway.time - t0 + 1, log10(abs(amt_optics.acs.chl)),'r')
+plot(amt_optics.uway.time - t0 + 1, log10(abs(amt_optics.acs.chl)))
 ylim([-2,0])
-xlim([320,330])
 
-figure 
-plot(amt_optics.uway.lat, log10(abs(amt_optics.acs2.chl)))
-hold on
-plot(amt_optics.uway.lat, log10(abs(amt_optics.acs.chl)),'r')
-ylim([-2,0])
+
+#figure 
+#'plot(amt_optics.uway.lat, log10(abs(amt_optics.acs.chl)),'r')
+#ylim([-2,0])
 
 #figure
 #plot(amt_optics.uway.time, amt_optics.uway.lat) 

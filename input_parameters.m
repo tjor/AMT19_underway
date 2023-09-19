@@ -13,25 +13,35 @@ CRUISE = "AMT19";
 
 % Variables to be changed during cruise according to specific setups and user needs
 %
-% Date
-% Set date interval to be processed (format is "yyyymmdd")
-% (this will have to be changed each time the scripts are run)
-% first day of cruise = 20180925, jday=268: "With_AC9/"  
-% day of switch to default config = 20180927, jday=270: "/" 
-% day of ACS switch = 20181019, jday=292": "With_AC9_Without_ACS/"% end day 301
-# last day is 20181028
-% dates
- 
- 
-# default config # ACS 122 system
-inidate = "20091014"; #  jday = 287 
-enddate = "20091015"; # jday = 332 
 
+ 
+# default config # ACS 007 system
+#inidate = "20091014"; #  jday = 287 
+#enddate = "20091027"; # jday = 300 - last day before AC-S breaks?
+#WAP_ROOT = strcat(lower(CRUISE),'_09') 
+#dh8_instruments = {"acs", "bb3"};
+#dh8_ports = {1,2}; 
+#dh8_serialnumber = {94,1173}; 
+#WAPhour = "15";
+#WAPhour = "08"; # for day 293
+#ACS_CAL_FILE_NAME = "acs007.dev"
+
+% Underway subdirectory where to find special wapped data
+% Leave with simple / if no special case
+# UWAY_WAP_SUBDIR = "With_AC9_Without_ACS/"; 
+# UWAY_WAP_SUBDIR = "With_AC9/"; 
+#UWAY_WAP_SUBDIR = "/"; 
+
+
+# default config # ACS 007 system
+inidate = "20091027"; #  jday = 300; AC-9 introduced
+enddate = "20091028"; # 
 WAP_ROOT = strcat(lower(CRUISE),'_09') 
-dh8_instruments = {"acs", "bb3"};
-dh8_ports = {1,2}; 
-dh8_serialnumber = {94,1173}; 
-WAPhour = "15";
+dh8_instruments = {"acs", "bb3","ac9"};
+dh8_ports = {1,2,3}; 
+dh8_serialnumber = {94,1173,274}; 
+#WAPhour = "15";
+WAPhour = "08"; # for day 293
 ACS_CAL_FILE_NAME = "acs007.dev"
 
 % Underway subdirectory where to find special wapped data
@@ -39,6 +49,7 @@ ACS_CAL_FILE_NAME = "acs007.dev"
 # UWAY_WAP_SUBDIR = "With_AC9_Without_ACS/"; 
 # UWAY_WAP_SUBDIR = "With_AC9/"; 
 UWAY_WAP_SUBDIR = "/"; 
+
 
 % Parameters specific for Underway plotting/processing
 % (this will change depending on specific section fo the cruise)
@@ -96,7 +107,7 @@ CTD_DIR = "Ship_CTD/";
 % Specific data subdirectories
 DATA_WAPPED = "Processed/Wap_extracted/";
 DATA_RAW = "/Raw";
-DATA_FLOW = '/Raw/Flow/' 
+DATA_FLOW = "Raw/Flow/"; 
 DATA_WITH_BB3 = "with_BB3/";
 
 %-----------------------------
@@ -110,7 +121,7 @@ D_CAL_FILES = '/data/datasets/cruise_data/archived/AMT19/modellers/backup/AMT19/
 
 %-----------------------------
 % Ship"s system directories
-PATH_SHIP = [PATH_DATA, 'UnderwayFiles']
+PATH_SHIP = '/data/datasets/cruise_data/active/AMT19/ship_uway/' # this is hardcoded from a new folder I made in the active directory
 
 #----------------------------
 # Input parameters for ship"s underway data
@@ -124,14 +135,14 @@ addpath([MAIN_PATH, "Source/Underway/"]) # location where @rd_gps_AMT19 @rd_meta
 # DIR_GPS = '/data/datasets/cruise_data/active/AMT24/Ship_data/Compress/Compress/days/seatex-gga/' # hard-coded for amt 24
 
 DIR_GPS = PATH_SHIP
-GLOB_GPS = "2012";
-FN_GPS = "daily_gps_meta.csv";
-FNC_GPS = @rd_gps_AMT22; # this function should be inside Source/Underway
+GLOB_GPS = "2009";
+FN_GPS = "shipmeta.csv";
+FNC_GPS = @rd_gps_AMT19; # this function should be inside Source/Underway
 
 DIR_METDATA = PATH_SHIP
-GLOB_METDATA = "2012";
-FN_METDATA = "daily_gps_meta.csv";
-FNC_METDATA = @rd_meta_AMT22; # this function should be inside Source/Underway
+GLOB_METDATA = "2009";
+FN_METDATA = "shipmeta.csv";
+FNC_METDATA = @rd_meta_AMT19; # this function should be inside Source/Underway
 
 #----------------------------
 
@@ -144,7 +155,7 @@ global FN_ROOT_STEP2 = [DIR_STEP2 "proc_optics_" lower(CRUISE) "_"];
 
 global acs_wv = [400:2:750];
 
-% Create path for saving figures
+#   Create path for saving figures
 #   global fig_dir = [OUT_FIGS, UWAY_DIR];
 global DIR_FIGS = [OUT_FIGS, UWAY_DIR];
 
@@ -156,11 +167,6 @@ global DIR_FIGS = [OUT_FIGS, UWAY_DIR];
    if ~exist(DIR_STEP2, "dir")
       mkdir(DIR_STEP2);
    endif
-
-
-
-
-
 
 
 %-----------------------------
