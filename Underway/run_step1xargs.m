@@ -6,6 +6,8 @@
    % Build directories
    din = [PATH_DATA UWAY_DIR];
    wapdir = [din DATA_WAPPED UWAY_WAP_SUBDIR];
+   
+  
 
    % Create date range
    [numdates, strdates, vecdates, jdays] = get_date_range(inidate,enddate);
@@ -15,7 +17,9 @@
    % day is processed is WAP file exists for the WAPhour hour
    % (so ideally processing should/could be done in the morning for day before)
    
-   WAPdays = glob([wapdir, WAP_ROOT, '_*MRG.0*',WAPhour])
+      
+   % WAPdays = glob([wapdir, WAP_ROOT, '_*MRG.0*',WAPhour]);
+   WAPdays = glob([wapdir, '**/*' , WAP_ROOT, '_*MRG.0*',WAPhour]); # modified for subdir structure
 
    % Define indices of days to be processed
    % Initialize index variable
