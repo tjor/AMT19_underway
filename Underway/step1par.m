@@ -108,7 +108,7 @@ function step1par(jday)
    first_hour = 1
    last_hour = size(wapfiles,1)
 
-   for ihour = first_hour:last_hour %reads each hour of data and assign the data to their specific structures
+   for ihour = first_hour:22#last_hour %reads each hour of data and assign the data to their specific structures
    % for ihour = last_hour-1:last_hour  %reads each hour of data and assign the data to their specific structures
 
       disp([fn1 ' ' (wapfiles{ihour,2})]);
@@ -197,8 +197,10 @@ function step1par(jday)
       % flow sensors
       try
          tmp_flow = tmp_WAPvars.flow;
+    
          flow = bindata_merge(flow, tmp_flow.time, tmp_flow.Hz(:,:));
          flow_v = bindata_merge(flow_v, tmp_flow.time, tmp_flow.valve(:,:));
+              
          % Save to output var
          WAPvars.flow = flow;
          WAPvars.flow_v = flow_v;
@@ -209,7 +211,6 @@ function step1par(jday)
 
     endfor
 
-    
     clear ihour
     % ------------------------------------------------------------------------
     % Save data to MAT file for future use

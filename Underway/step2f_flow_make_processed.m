@@ -13,8 +13,10 @@ function flow = step2f_flow_make_processed(flow, dailyfile)
       load(savefile);
    endif
 
+
    out.flow = flow;
-   
+
+
    save('-v6', savefile , 'out' )
 
 

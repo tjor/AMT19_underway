@@ -21,7 +21,7 @@ CRUISE = "AMT19";
 #WAP_ROOT = strcat(lower(CRUISE),'_09') 
 #dh8_instruments = {"acs", "bb3"};
 #dh8_ports = {1,2}; 
-#dh8_serialnumber = {94,1173}; 
+#dh8_serialnumber = {94, 1173}; 
 #WAPhour = "15";
 #WAPhour = "08"; # for day 293
 #ACS_CAL_FILE_NAME = "acs007.dev"
@@ -30,18 +30,19 @@ CRUISE = "AMT19";
 % Leave with simple / if no special case
 # UWAY_WAP_SUBDIR = "With_AC9_Without_ACS/"; 
 # UWAY_WAP_SUBDIR = "With_AC9/"; 
-#UWAY_WAP_SUBDIR = "/"; 
+UWAY_WAP_SUBDIR = "/"; 
 
 
 # default config # ACS 007 system
 inidate = "20091027"; #  jday = 300; AC-9 introduced
-enddate = "20091028"; # 
+#inidate = "20091121"; #  point where we loose flow data
+enddate = "20091128"; # 
 WAP_ROOT = strcat(lower(CRUISE),'_09') 
 dh8_instruments = {"acs", "bb3","ac9"};
 dh8_ports = {1,2,3}; 
 dh8_serialnumber = {94,1173,274}; 
-#WAPhour = "15";
-WAPhour = "08"; # for day 293
+WAPhour = "15";
+WAPhour = "10"; # for day 293
 ACS_CAL_FILE_NAME = "acs007.dev"
 
 % Underway subdirectory where to find special wapped data

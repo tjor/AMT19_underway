@@ -147,7 +147,10 @@ for ifn = 1: size(fn,1)
     disp(["\n" fn(ifn).name])
     load([din fn(ifn).name]);
     
-
+    fn(ifn).name
+    
+   # keyboard
+    
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % COMMENTED 2019 10 23 FN
     %
@@ -158,6 +161,7 @@ for ifn = 1: size(fn,1)
     %     [out, it_acs_cp] = rm_noisy_acs_cp(out, t2remove_acs_cp, it_acs_cp );
     %     [out, it_chl] = rm_noisy_acs_chl(out, t2remove_acs_chl, it_chl);
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
     
    sum(~isnan(chlacs(out.acs)))
    
