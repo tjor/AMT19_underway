@@ -49,14 +49,14 @@ function WAPvars = rd_wap_amt(flowdir, filename, fileext, dh8_instruments, dh8_p
       if exist(fn_flow)
          [tmp_flow] = rd_flow(fn_flow);
          flow.time = datenum([tmp_flow(:,1) tmp_flow(:,2) tmp_flow(:,3) tmp_flow(:,4) tmp_flow(:,5) tmp_flow(:,6)]);
-         flow.Hz = tmp_flow(:,9);
+         flow.Hz = tmp_flow(:,10); # this is 9 in later cruises  - changed for AMT19
          flow.valve = tmp_flow(:,7);
+   
       else
          [tmp_flow] = deal([]) ;
          flow.time = [];
          flow.Hz = [];        
          flow.valve = [];
-         
       endif
       % Add to output variable
       WAPvars.flow = flow;
