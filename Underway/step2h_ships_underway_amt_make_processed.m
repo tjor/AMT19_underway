@@ -38,25 +38,33 @@ function tmp = step2h_ships_underway_amt_make_processed(doy, DIR_GPS, GLOB_GPS, 
 
       tmp1 = FNC_GPS([din_gps{1} '/' FN_GPS]);
       tmp2 = FNC_METDATA([din_met{1} '/' FN_METDATA]);
+	
+
 
       % create daily time vector with one record per minute of the day (24*60=1440)
+      
+      
+      
       tmp.time = y0(YYYY)-1 + doy + [0:1440-1]'/1440; # time vector to match 1-min binned optics data 
 
-      %interpolate underway data to one-minute samples
+     
+      %interpolate underway data to one-minute samples - not needed for AMT 19 - already 1 minute
       flds1 = fieldnames(tmp1);
       for ifld1=2:length(flds1) % skips time field
          tmp.(flds1{ifld1}) = nan(size(tmp.time));
          if ~isempty(tmp1.time)
-            tmp.(flds1{ifld1}) = interp1(tmp1.time, tmp1.(flds1{ifld1}), tmp.time);
+            tmp.(flds1{ifld1}) = tmp1.(flds1{ifld1}); # already at 1 min binning - no need to interpolate
+            #tmp.(flds1{ifld1}) = interp1(tmp1.time, tmp1.(flds1{ifld1}), tmp.time,'extrap');
          endif
       endfor
 
 
-      flds2 = fieldnames(tmp2);
-      for ifld2=2:length(flds2) % skips time field
+     flds2 = fieldnames(tmp2);
+     for ifld2=2:length(flds2) % skips time field
          tmp.(flds2{ifld2}) = nan(size(tmp.time));
          if ~isempty(tmp2.time)
-            tmp.(flds2{ifld2}) = interp1(tmp2.time, tmp2.(flds2{ifld2}), tmp.time);
+            tmp.(flds2{ifld2}) = tmp2.(flds2{ifld2}); # already at 1 min binning - no need to interpolate 
+           # tmp.(flds2{ifld2}) = interp1(tmp2.time, tmp2.(flds2{ifld2}), tmp.time,'extrap');
          endif
       endfor
       
@@ -66,8 +74,8 @@ function tmp = step2h_ships_underway_amt_make_processed(doy, DIR_GPS, GLOB_GPS, 
          load(savefile);
       endif
 
-      out.uway = tmp;
 
+      out.uway = tmp;
       save('-v6', savefile , 'out' );
 
 

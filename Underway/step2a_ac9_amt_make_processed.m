@@ -1,4 +1,4 @@
-function step2a_ac9_amt_make_processed(ac9, dailyfile, ac9_lim, FORCE, flow)
+function step2a_ac9_amt_make_processed(ac9, dailyfile, ac9_lim, FORCE)
 
    % tjor: function loads ac9 data and processes them using calibration-independent technique (filter/NOfilter).
    % The code follows ACs processing but without the NIR temperature correction from Sade et al. 2010 (instead a measurement eq,

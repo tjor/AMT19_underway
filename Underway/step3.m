@@ -142,14 +142,13 @@ fn = dir([din "*mat"]);
 
 
 
-for ifn = 1: size(fn,1) 
+for ifn = 1: size(fn,1)
  
     disp(["\n" fn(ifn).name])
     load([din fn(ifn).name]);
     
-    fn(ifn).name
-    
-   # keyboard
+ 
+   
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % COMMENTED 2019 10 23 FN
@@ -248,8 +247,11 @@ for ifn = 1: size(fn,1)
         amt_optics.ac9.ap_u   = [amt_optics.ac9.ap_u;  nan*ones(9,1440)'];
         amt_optics.ac9.bp_u   = [amt_optics.ac9.bp_u;  nan*ones(9,1440)'];
         amt_optics.ac9.cp_u   = [amt_optics.ac9.cp_u; nan*ones(9,1440)'];
-        amt_optics.ac9.N      = [amt_optics.ac9.N;  nan*ones(9,1440)'];
+        amt_optics.ac9.N      = [amt_optics.ac9.N;  nan*ones(1,1440)'];
     endif
+
+
+
 
     % Check if bb3 variable exists
     if ~isempty(intersect('bb3',fieldnames(out)))
@@ -317,7 +319,10 @@ for ifn = 1: size(fn,1)
    #     keyboard 
     endif
 
+
 endfor
+
+
 
 
 %stop  % <-----------------    uncomment this stop before using remove_bbp_noise.m
@@ -330,7 +335,7 @@ amt_optics.time = amt_optics.acs.time + t0; %
 amt_optics.acs.time = amt_optics.acs.time + t0 ;%   
 amt_optics.acs2.time = amt_optics.acs2.time + t0;%   
 amt_optics.ac9.time = amt_optics.ac9.time + t0;%   
-                                      
+                             
 
 % Interpolate ship's underway on acs time  % tjor: p
 % Starting from 2 removes time from the uway field
@@ -364,8 +369,6 @@ amt_optics.bb3.bbp_corr = amt_optics.bb3.bbp - amt_optics.bb3.bb02;
 % keyboard
 eval([lower(CRUISE) '= amt_optics;']) # create amtXX structure
 
-amt_optics = rmfield(amt_optics , 'ac9')
-
 
 if ~exist(DIR_STEP3,'dir')
     mkdir(DIR_STEP3)
@@ -390,8 +393,18 @@ save('-v6', [DIR_STEP3 lower(CRUISE) '_optics.mat'], lower(CRUISE))
 
 figure 
 plot(amt_optics.uway.time - t0 + 1, log10(abs(amt_optics.acs.chl)))
-ylim([-2,0])
+hold on
+plot(amt_optics.uway.time - t0 + 1, log10(abs(amt_optics.ac9.chl)))
+ylim([-4,0])
+xlim([280,320])
 
+
+figure 
+plot(amt_optics.uway.lat, log10(abs(amt_optics.acs.chl)))
+hold on
+plot(amt_optics.uway.lat, log10(abs(amt_optics.ac9.chl)))
+ylim([-4,0])
+xlim([-40,40])
 
 #figure 
 #'plot(amt_optics.uway.lat, log10(abs(amt_optics.acs.chl)),'r')
@@ -407,4 +420,11 @@ ylim([-2,0])
 #plot(amt_optics.acs.time,'r')
 #hold on
 #plot(amt_optics.acs2.time,'g')
+
+figure
+plot(amt_optics.uway.sal)
+xlim([0,1000])
+
+
+
 

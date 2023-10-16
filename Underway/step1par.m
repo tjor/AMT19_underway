@@ -108,7 +108,7 @@ function step1par(jday)
    first_hour = 1
    last_hour = size(wapfiles,1)
 
-   for ihour = first_hour:22#last_hour %reads each hour of data and assign the data to their specific structures
+   for ihour = first_hour: last_hour %reads each hour of data and assign the data to their specific structures
    % for ihour = last_hour-1:last_hour  %reads each hour of data and assign the data to their specific structures
 
       disp([fn1 ' ' (wapfiles{ihour,2})]);
