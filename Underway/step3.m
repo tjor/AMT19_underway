@@ -332,9 +332,9 @@ t0 = y0(str2num(inidate(1:4)));
 
 
 amt_optics.time = amt_optics.acs.time + t0; %     
-amt_optics.acs.time = amt_optics.acs.time + t0 ;%   
-amt_optics.acs2.time = amt_optics.acs2.time + t0;%   
-amt_optics.ac9.time = amt_optics.ac9.time + t0;%   
+amt_optics.acs.time = amt_optics.acs.time + t0 ; %   
+amt_optics.acs2.time = amt_optics.acs2.time + t0; %   
+amt_optics.ac9.time = amt_optics.ac9.time + t0; %   
                              
 
 % Interpolate ship's underway on acs time  % tjor: p
@@ -363,7 +363,7 @@ amt_optics.bb3.bbp_corr = amt_optics.bb3.bbp - amt_optics.bb3.bb02;
 
 
 # scale ac9 chl to acs chl
-# run("cmp_chlACs2AC9_ratio");
+run("cmp_chlACs2AC9_ratio");
 
 
 % keyboard
@@ -395,16 +395,16 @@ figure
 plot(amt_optics.uway.time - t0 + 1, log10(abs(amt_optics.acs.chl)))
 hold on
 plot(amt_optics.uway.time - t0 + 1, log10(abs(amt_optics.ac9.chl)))
-ylim([-4,0])
-xlim([280,320])
+ylim([-4,1])
+xlim([280,332])
 
 
 figure 
 plot(amt_optics.uway.lat, log10(abs(amt_optics.acs.chl)))
 hold on
 plot(amt_optics.uway.lat, log10(abs(amt_optics.ac9.chl)))
-ylim([-4,0])
-xlim([-40,40])
+ylim([-4,1])
+xlim([-50,50])
 
 #figure 
 #'plot(amt_optics.uway.lat, log10(abs(amt_optics.acs.chl)),'r')
