@@ -11,7 +11,7 @@ import ipdb
 
 
 def main(amt_n, amt_y):
-    pathin = '/users/rsg/tjor/scratch_network/AMT_underway/AMT22/Processed/Step3/' # note: Underway in previous
+    pathin = '/users/rsg/tjor/scratch_network/AMT_underway/AMT19/Processed/Step3/' # note: Underway in previous
     # pathin = '../../../AMT%s/Processed/Uway/Step3/' % amt_n
     # pathin = '/data/datasets/cruise_data/active/AMT%s/OSU/Optics/AMT%s_source/m/' % (amt_n,amt_n)
     # pathin = '../../Processed/Underway/Step3/'
@@ -272,6 +272,7 @@ def main(amt_n, amt_y):
 
     pathout = pathin
     fnameout = 'amt%s_final.nc' % amt_n
+    breakpoint()
     
     ds['uway_lat'] = np.real(ds['uway_lat'])
     ds.to_netcdf(os.path.join(pathout,fnameout))
@@ -288,8 +289,8 @@ def main(amt_n, amt_y):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--amt', default='22', help="Number of AMT cruise to process")
-    parser.add_argument('--year', default='2012', help="Year of AMT cruise to process")
+    parser.add_argument('--amt', default='19', help="Number of AMT cruise to process")
+    parser.add_argument('--year', default='2009', help="Year of AMT cruise to process")
     args = parser.parse_args()
     amt_n = args.amt
     amt_y = args.year
